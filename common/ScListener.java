@@ -336,12 +336,6 @@ public class ScListener {
    }
 
    private byte[] A(BeaconDLL var1, AggressorClient var2, String var3) {
-      if ("windows/foreign/reverse_http".equals(this.getPayload())){
-         return var1.originalDLL;
-      }
-      if ("windows/foreign/reverse_https".equals(this.getPayload())){
-         return var1.originalDLL;
-      }
       String var4 = "beaconRDLLGenerate(beaconDLL)";
       devlog(DevLog.STORY.CS0215, this.getClass(), var4, "preparing to call aggressor script BEACON_RDLL_GENERATE");
       devlog(DevLog.STORY.CS0216, this.getClass(), var4, "preparing to call aggressor script BEACON_RDLL_GENERATE");

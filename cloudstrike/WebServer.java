@@ -238,8 +238,9 @@ public class WebServer extends NanoHTTPD {
       String[] arr$ = this.blockedUAArray;
       int len$ = arr$.length;
 
-      for(int i$ = 0; i$ < len$; ++i$) {
-         String blockedUA = arr$[i$];
+      int len$;
+      for(len$ = 0; len$ < len$; ++len$) {
+         String blockedUA = arr$[len$];
          if (blockedUA.trim().length() > 0 && CSUtils.matchesSimpleGeneric(useragent, blockedUA.trim())) {
             blockedByUA = true;
          }
@@ -249,7 +250,7 @@ public class WebServer extends NanoHTTPD {
       String hook;
       if (this.allowedUAArray.length > 0) {
          allowedByUA = false;
-         arr$ = this.allowedUAArray;
+         String[] arr$ = this.allowedUAArray;
          len$ = arr$.length;
 
          for(int i$ = 0; i$ < len$; ++i$) {
@@ -273,8 +274,6 @@ public class WebServer extends NanoHTTPD {
             } else if (this.hooksSecondary.containsKey(uri)) {
                service = (WebService)this.hooksSecondary.get(uri);
                return this.processResponse(uri, method, header, param, false, service, service.serve(uri, method, header, param));
-            } else if (!uri.startsWith("/")) {
-               return processResponse(uri,method,header,param,false,null,new Response(HTTP_BADREQUEST,MIME_PLAINTEXT,""));
             } else if (this.hooks.containsKey(uri + "/")) {
                service = (WebService)this.hooks.get(uri + "/");
                return this.processResponse(uri + "/", method, header, param, true, service, service.serve(uri, method, header, param));
@@ -293,6 +292,7 @@ public class WebServer extends NanoHTTPD {
                WebService svc;
                do {
                   if (!i.hasNext()) {
+                     WebService service;
                      if (isStagerX64(uri) && this.hooks.containsKey("stager64")) {
                         service = (WebService)this.hooks.get("stager64");
                         return this.processResponse(uri + "/", method, header, param, true, service, service.serve(uri, method, header, param));

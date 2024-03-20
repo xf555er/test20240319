@@ -56,8 +56,7 @@ popup attacks {
 	menu "&Packages" {
 		item("&HTML Application", { openHTMLApplicationDialog(); });
 		item("MS &Office Macro", { openOfficeMacroDialog(); });
-		item("&Payload Generator", { openPayloadGeneratorDialog();});
-		item("Payload Generator(&Stageless)",{openPayloadGeneratorStageDialog();});
+		item("&Payload Generator", { openPayloadGeneratorDialog(); });
 		#item("&USB/CD AutoPlay", { openAutoRunDialog(); });
 		#item("Windows &Dropper", { openWindowsDropperDialog(); });
 		item("Windows &Executable", { openWindowsExecutableDialog(); });

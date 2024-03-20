@@ -270,12 +270,7 @@ public class BeaconEntry implements Serializable, Loggable {
       }
 
       if (var13.length > 1) {
-         boolean namebool = var13[1].matches("^[a-z0-9A-Z\\u4e00-\\u9fa5]+$");
-         if (namebool){
-            this.user = var13[1];
-         }else {
-            this.user = "notshow";
-         }
+         this.user = var13[1];
       }
 
       if (var13.length > 2) {

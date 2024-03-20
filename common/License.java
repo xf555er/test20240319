@@ -31,21 +31,21 @@ public class License {
    }
 
    public static void checkLicenseConsole(Authorization var0) {
-//      if (!var0.isValid()) {
-//         CommonUtils.print_error("Your authorization file is not valid: " + var0.getError());
-//         System.exit(2);
-//      }
+      if (!var0.isValid()) {
+         CommonUtils.print_error("Your authorization file is not valid: " + var0.getError());
+         System.exit(2);
+      }
 
-//      if (!var0.isPerpetual()) {
-//         if (var0.isExpired()) {
-//            CommonUtils.print_error("Your Cobalt Strike license is expired. Please contact cobalt.custops@helpsystems.com to renew. If you did renew, run the update program to refresh your authorization file.");
-//            System.exit(2);
-//         }
-//
-//         if (var0.isAlmostExpired()) {
-//            CommonUtils.print_warn("Your Cobalt Strike license expires in " + var0.whenExpires() + ". Email cobalt.custops@helpsystems.com to renew. If you did renew, run the update program to refresh your authorization file.");
-//         }
-//
-//      }
+      if (!var0.isPerpetual()) {
+         if (var0.isExpired()) {
+            CommonUtils.print_error("Your Cobalt Strike license is expired. Please contact cobalt.custops@helpsystems.com to renew. If you did renew, run the update program to refresh your authorization file.");
+            System.exit(2);
+         }
+
+         if (var0.isAlmostExpired()) {
+            CommonUtils.print_warn("Your Cobalt Strike license expires in " + var0.whenExpires() + ". Email cobalt.custops@helpsystems.com to renew. If you did renew, run the update program to refresh your authorization file.");
+         }
+
+      }
    }
 }

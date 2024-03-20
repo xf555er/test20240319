@@ -15,7 +15,6 @@ import dns.QuickSecurity;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.net.Socket;
-import java.security.Security;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -101,9 +100,6 @@ public class TeamServer extends Starter {
    }
 
    public static void main(String[] var0) {
-      System.setProperty("https.protocols","TLSv1.2,TLSv1.1,TLSv1.0");
-      Security.setProperty("jdk.tls.disabledAlgorithms","");
-
       A();
       int var1 = CommonUtils.toNumber(System.getProperty("cobaltstrike.server_port", "50050"), 50050);
       if (!AssertUtils.TestPort(var1)) {
@@ -164,6 +160,8 @@ public class TeamServer extends Starter {
    }
 
    private static final void A() {
+
+
       RuntimeMXBean var0 = ManagementFactory.getRuntimeMXBean();
       List var1 = var0.getInputArguments();
       Iterator var2 = var1.iterator();

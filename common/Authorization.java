@@ -25,68 +25,72 @@ public class Authorization {
          }
       }
 
-      byte[] var4 = {1, -55, -61, 127, 0, 1, -122, -96, 45, 16, 27, -27, -66, 82, -58, 37, 92, 51, 85, -114, -118, 28, -74, 103, -53, 6, 16, -128, -29, 42, 116, 32, 96, -72, -124, 65, -101, -96, -63, 113, -55, -86, 118, 16, -78, 13, 72, 122, -35, -44, 113, 52, 24, -14, -43, -93, -82, 2, -89, -96, 16, 58, 68, 37, 73, 15, 56, -102, -18, -61, 18, -67, -41, 88, -83, 43, -103, 16, 94, -104, 25, 74, 1, -58, -76, -113, -91, -126, -90, -87, -4, -69, -110, -42, 16, -13, -114, -77, -47, -93, 53, -78, 82, -75, -117, -62, -84, -34, -127, -75, 66, 0, 0, 0, 24, 66, 101, 117, 100, 116, 75, 103, 113, 110, 108, 109, 48, 82, 117, 118, 102, 43, 86, 89, 120, 117, 119, 61, 61};
-      if (var4.length == 0) {
-         //this.error = var3.error();
+      byte[] var23 = {1, -55, -61, 127, 0, 1, -122, -96, 45, 16, 27, -27, -66, 82, -58, 37, 92, 51, 85, -114, -118, 28, -74, 103, -53, 6, 16, -128, -29, 42, 116, 32, 96, -72, -124, 65, -101, -96, -63, 113, -55, -86, 118, 16, -78, 13, 72, 122, -35, -44, 113, 52, 24, -14, -43, -93, -82, 2, -89, -96, 16, 58, 68, 37, 73, 15, 56, -102, -18, -61, 18, -67, -41, 88, -83, 43, -103, 16, 94, -104, 25, 74, 1, -58, -76, -113, -91, -126, -90, -87, -4, -69, -110, -42, 16, -13, -114, -77, -47, -93, 53, -78, 82, -75, -117, -62, -84, -34, -127, -75, 66, 0, 0, 0, 24, 66, 101, 117, 100, 116, 75, 103, 113, 110, 108, 109, 48, 82, 117, 118, 102, 43, 86, 89, 120, 117, 119, 61, 61};
+      if (var23.length == 0) {
+         this.error = "Could not read " + var1;
       } else {
-         try {
-            DataParser var5 = new DataParser(var4);
-            var5.big();
-            int var6 = var5.readInt();
-            this.watermark = var5.readInt();
-            byte var7 = var5.readByte();
-            if (var7 < 45) {
-               this.error = "Authorization file is not for Cobalt Strike 4.5+";
-               return;
-            }
-
-            byte var8 = var5.readByte();
-            var5.readBytes(var8);
-            byte var10 = var5.readByte();
-            var5.readBytes(var10);
-            byte var12 = var5.readByte();
-            var5.readBytes(var12);
-            byte var14 = var5.readByte();
-            var5.readBytes(var14);
-            byte var16 = var5.readByte();
-            var5.readBytes(var16);
-            byte var18 = var5.readByte();
-            byte[] var19 = var5.readBytes(var18);
-            if (var7 < 45) {
-               CommonUtils.print_error("Authorization version " + var7 + " does not support watermark hash.");
-            } else if (!var5.more()) {
-               CommonUtils.print_error("Authorization data is incomplete. Watermark hash is not available.");
-            } else {
-               int var20 = var5.readInt();
-               if (var20 > 0) {
-                  this.watermarkHash = var5.readString(var20);
-               }
-            }
-
-            if (29999999 == var6) {
-               this.validto = "forever";
-               MudgeSanity.systemDetail("valid to", "perpetual");
-            } else {
-               if (!this.A(var6)) {
-                  this.error = "Valid to date (" + var6 + ") is invalid";
+         AuthCrypto var3 = new AuthCrypto();
+         byte[] var4 = var3.decrypt(var23);
+         if (var4.length == 0) {
+            this.error = var3.error();
+         } else {
+            try {
+               DataParser var5 = new DataParser(var4);
+               var5.big();
+               int var6 = var5.readInt();
+               this.watermark = var5.readInt();
+               byte var7 = var5.readByte();
+               if (var7 < 45) {
+                  this.error = "Authorization file is not for Cobalt Strike 4.5+";
                   return;
                }
 
-               this.validto = "20" + var6;
-               MudgeSanity.systemDetail("valid to", CommonUtils.formatDateAny("MMMMM d, YYYY", this.getExpirationDate()));
+               byte var8 = var5.readByte();
+               var5.readBytes(var8);
+               byte var10 = var5.readByte();
+               var5.readBytes(var10);
+               byte var12 = var5.readByte();
+               var5.readBytes(var12);
+               byte var14 = var5.readByte();
+               var5.readBytes(var14);
+               byte var16 = var5.readByte();
+               var5.readBytes(var16);
+               byte var18 = var5.readByte();
+               byte[] var19 = var5.readBytes(var18);
+               if (var7 < 45) {
+                  CommonUtils.print_error("Authorization version " + var7 + " does not support watermark hash.");
+               } else if (!var5.more()) {
+                  CommonUtils.print_error("Authorization data is incomplete. Watermark hash is not available.");
+               } else {
+                  int var20 = var5.readInt();
+                  if (var20 > 0) {
+                     this.watermarkHash = var5.readString(var20);
+                  }
+               }
+
+               if (29999999 == var6) {
+                  this.validto = "forever";
+                  MudgeSanity.systemDetail("valid to", "perpetual");
+               } else {
+                  if (!this.A(var6)) {
+                     this.error = "Valid to date (" + var6 + ") is invalid";
+                     return;
+                  }
+
+                  this.validto = "20" + var6;
+                  MudgeSanity.systemDetail("valid to", CommonUtils.formatDateAny("MMMMM d, YYYY", this.getExpirationDate()));
+               }
+
+               this.valid = true;
+               MudgeSanity.systemDetail("id", this.watermark + "");
+               SleevedResource.Setup(var19);
+            } catch (Exception var21) {
+               MudgeSanity.logException("auth file parsing", var21, false);
             }
 
-            this.valid = true;
-            MudgeSanity.systemDetail("id", this.watermark + "");
-            SleevedResource.Setup(var19);
-         } catch (Exception var21) {
-            MudgeSanity.logException("auth file parsing", var21, false);
          }
-
       }
-
-      }
-
+   }
 
    private final boolean A(int var1) {
       if (var1 > 999999) {

@@ -52,7 +52,7 @@ public class BeaconData {
 
    public void shouldPad(boolean var1) {
       //this.shouldPad = var1;
-      this.shouldPad = false;
+      this.shouldpad = false;
       this.when = System.currentTimeMillis() + 1800000L;
    }
 

@@ -46,8 +46,7 @@ public class ListenerConfig {
 
       while(var3.length() < var2) {
          if (this.watermark == 0) {
-            //var3.append("5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*\u0000");
-            var3.append((char)CommonUtils.rand(255));
+            var3.append("5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*\u0000");
          } else {
             var3.append((char)CommonUtils.rand(255));
          }
